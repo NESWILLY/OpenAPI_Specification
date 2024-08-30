@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: STD23000 - TD2
+  version: '1.0.0'
+servers:
+  - url: https://localhost.std230xxx.com
+paths:
+  /customers:
+    get:
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateCustomer'
+      responses:
+        200:
+          description: Customers created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Customer'
+      responses:
+        200:
+          description: Customers updated successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    delete:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomerIdentifier'
+      responses:
+        200:
+          description: Customers deleted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        age:
+          type: integer
+    CreateCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+    CustomerIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
