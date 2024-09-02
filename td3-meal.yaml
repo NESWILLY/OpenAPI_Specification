@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: STD23000 - TD3
+  version: '1.0.0'
+servers:
+  - url: https://localhost.std230xxx.com
+paths:
+  /meals:
+    get:
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: integer
+          description: Page number of the results
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            type: integer
+          description: Number of results per page
+      responses:
+        200:
+          description: List of meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  price:
+                    type: number
+                    format: float
+      responses:
+        200:
+          description: List of meals with IDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Meal'
+      responses:
+        200:
+          description: List of updated meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+    delete:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+      responses:
+        200:
+          description: List of deleted meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+components:
+  schemas:
+    Meal:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: float
