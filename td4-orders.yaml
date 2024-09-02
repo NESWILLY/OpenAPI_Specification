@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  version: 1.0.0
+paths:
+  /customers/{customerId}/orders:
+    get:
+      summary: Get orders for a specific customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of orders for the customer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Create a new order for a specific customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Order to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+        required: true
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      summary: Update an order for a specific customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Order to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+        required: true
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+components:
+  schemas:
+    Meal:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: decimal
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        reference:
+          type: string
+        meals:
+          type: array
+          items:
+            type: object
+            properties:
+              meal:
+                $ref: '#/components/schemas/Meal'
+              quantity:
+                type: integer
+        orderDatetime:
+          type: string
+          format: date-time
+    OrderInput:
+      type: object
+      properties:
+        reference:
+          type: string
+        meals:
+          type: array
+          items:
+            type: object
+            properties:
+              meal:
+                $ref: '#/components/schemas/Meal'
+              quantity:
+                type: integer
+        orderDatetime:
+          type: string
+          format: date-time
