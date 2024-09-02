@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  version: 1.0.0
+paths:
+  /customers:
+    put:
+      summary: Update a customer completely
+      requestBody:
+        description: Customer data to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    patch:
+      summary: Update a customer partially
+      requestBody:
+        description: Data to update partially
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPartial'
+        required: true
+      responses:
+        '200':
+          description: Customer partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        age:
+          type: integer
+    CustomerPartial:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        age:
+          type: integer
+      required:
+        - id
